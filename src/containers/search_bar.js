@@ -28,13 +28,13 @@ class SearchBar extends Component {
         return (
             <form onSubmit={this.onFormSubmit} className="input-group">
                 <input
-                    placeholder="Get a five-day forecast"
+                    placeholder="5-дневный прогноз для города"
                     className="form-control"
                     value={this.state.term}
                     onChange={this.onInputChange}
                 />
                 <span className="input-group-btn">
-                    <button type="submit" className="btn btn-secondary">Submit</button>
+                    <button type="submit" className="btn btn-secondary">Отправить</button>
                 </span>
             </form>
         );
