@@ -1,29 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Chart from '../components/chart';
-import GoogleMap from '../components/google_map';
+import CityWeather from '../containers/city_weather';
 
 class WeatherList extends Component {
+
     renderWeather(cityData) {
-        if (cityData == null) {
-            return <tr></tr>
-        }
-
-        const name = cityData.city.name;
-        const temps = cityData.list.map(weather => weather.main.temp);
-        const pressures = cityData.list.map(weather => weather.main.pressure);
-        const humidities = cityData.list.map(weather => weather.main.humidity);
-        const { lon, lat } = cityData.city.coord;
-
         return (
-            <tr key={name}>
-                <td><GoogleMap lon={lon} lat={lat} /></td>
-                <td><Chart data={temps} color="orange" units="C" /></td>
-                <td><Chart data={pressures} color="green" units="hPa" /></td>
-                <td><Chart data={humidities} color="blue" units="%" /></td>
-            </tr>
+            <CityWeather
+                key={cityData.city.name}
+                city={cityData.city}
+                list={cityData.list}
+            />
         );
-    };
+    }
 
     render() {
         return (
@@ -34,10 +23,11 @@ class WeatherList extends Component {
                         <th>Температура (C)</th>
                         <th>Давление (hPa)</th>
                         <th>Влажность (%)</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {this.props.weather.map(this.renderWeather)}
+                    {this.props.weather.map(cityData => this.renderWeather(cityData))}
                 </tbody>
             </table>
         );
